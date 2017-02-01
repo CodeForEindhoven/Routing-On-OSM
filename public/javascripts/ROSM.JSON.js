@@ -26,4 +26,4 @@ ROSM.JSON = {
   reset: function() {
     ROSM.JSON.callbacks = {};
   }
-}
+};

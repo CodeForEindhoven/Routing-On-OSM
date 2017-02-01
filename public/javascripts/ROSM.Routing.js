@@ -16,7 +16,7 @@ ROSM.Routing = {
 
     if(ROSM.G.route.hasRoute()) {
       ROSM.G.route.reset();
-    };
+    }
 
     ROSM.G.response = response;
     ROSM.RoutingGeometry.show(ROSM.G.response);
@@ -41,13 +41,21 @@ ROSM.Routing = {
     // console.log(points);
     ROSM.G.route.reset();
     ROSM.JSON.clear("routing");
+    // ROSM.JSON.call("routing", {
+    //   type: "GET",
+    //   url: "/routing",
+    //   dataType: "json",
+    //   data: {
+    //     latlngs: points
+    //   }
+    // }, this.showRoute);
     ROSM.JSON.call("routing", {
-      type: "GET",
+      type: "POST",
       url: "/routing",
-      dataType: "json",
       data: {
         latlngs: points
       }
     }, this.showRoute);
+
   }
-}
+};

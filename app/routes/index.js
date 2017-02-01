@@ -9,7 +9,6 @@ Route.get('/', function (req, res) {
 });
 
 // api routes
-Route
-  .get('/routing', routeController.pgr_dijkstra)
+Route.all('/routing', routeController.pgr_dijkstra);
 
 module.exports = Route;
