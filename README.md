@@ -1,26 +1,32 @@
 Routing on Openstreetmap !
 ======
 
-Demo : http://routingonosm-brandboat.rhcloud.com/
+Demo : http://routingonosm-brandboat.rhcloud.com/ (offline)
 
-## Environment :
-- os: Ubuntu 12.04
-- nodejs: 0.10
-- postgresql: 9.1
-- pgrouting: 9.1 (based on postgresql)
-- postGIS: 2.0
+## Requirements
+- node and npm
+- postgresql, postgis and pgrouting
 
-## How to use :
-1. install nodejs 0.10 , postgresql9.1, postGIS2.0, pgrouting
-2. psql -U username -d dbname
-3. CREATE EXTENSION postgis;
-4. CREATE EXTENSION pgrouting;
-5. download map data from openstreetmap
-6. osm2pgrouting -file "sampledata.osm" \
-                          -conf "/usr/share/osm2pgrouting/mapconfig.xml" \
-                          -dbname DBNAME \
-                          -user USERNAMWE \
-                          -clean
-7. node server.js
+## Test database
+```
+psql -U username -d dbname
+CREATE EXTENSION postgis;
+CREATE EXTENSION pgrouting;
+```
+You can install the saple data or download your own from openstreetmap
 
-for further information, please go to : http://brandboat.github.io/2014-08-16-Routing_on_OSM/ (Chinese)
+```bash
+osm2pgrouting -file "map.osm" \
+  -conf "/usr/share/osm2pgrouting/mapconfig.xml" \
+  -dbname DBNAME \
+  -user USERNAMWE \
+  -clean
+```
+
+## Run
+```
+npm install
+npm start
+```
+
+for further information, please go to : http://brandboat.github.io/2014-08-16-Routing_on_OSM/ (offline, Chinese)
