@@ -11,7 +11,7 @@ module.exports = function(app, express) {
   app.set('port', app.config.server.port || 3001);
   app.set('hostname', app.config.server.hostname || '127.0.0.1');
   app.set('views', path.join(__dirname, '../../app/views'));
-  app.set('view engine', 'jade');
+  app.set('view engine', 'pug');
   app.use(bodyParser.json()); // to support JSON-encoded bodies
   app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
     extended: true

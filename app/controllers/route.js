@@ -60,9 +60,9 @@ exports.pgr_dijkstra = function(req, res) {
 
       var qStr = "SELECT id FROM ways_vertices_pgr ORDER BY " +
         "st_distance(the_geom, st_setsrid(st_makepoint(" +
-        point.lng + "," + point.lat + "), 4326)) LIMIT 1;";
+        "$1::float,$2::float), 4326)) LIMIT 1;";
 
-      client.query(qStr, function(err, result) {
+      client.query(qStr, [point.lng, point.lat],function(err, result) {
         if (err) {
           callback(err, null);
         } else {
@@ -100,12 +100,12 @@ exports.pgr_dijkstra = function(req, res) {
         "(SELECT seq, id1 AS node, id2 AS edge_id, cost, " +
         "ROW_NUMBER() OVER (PARTITION BY 1) AS rank FROM " +
         "pgr_dijkstra('SELECT gid::integer AS id, source::integer, " +
-        "target::integer, length::double precision AS cost FROM ways', " +
-        route.begin + ", " + route.end + ", false, false)) " +
+        "target::integer, length::double precision AS cost FROM ways'," +
+        "$1, $2, false, false)) " +
         "AS route ON ways.gid = route.edge_id ORDER BY rank) " +
         "SELECT ST_AsEWKT(result.the_geom), name from result;";
 
-      client.query(qStr, function(err, result) {
+      client.query(qStr, [route.begin, route.end], function(err, result) {
         if (err) {
           console.log(qStr);
           return console.error('✗ Postgresql Running Query Error', err);
