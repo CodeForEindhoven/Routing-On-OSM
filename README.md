@@ -13,7 +13,7 @@ psql -U username -d dbname
 CREATE EXTENSION postgis;
 CREATE EXTENSION pgrouting;
 ```
-You can install the saple data or download your own from openstreetmap
+You can install the sample data or download your own from [OpenStreetMap](http://wiki.openstreetmap.org/wiki/Downloading_data)
 
 ```bash
 osm2pgrouting -file "map.osm" \
