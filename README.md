@@ -28,6 +28,6 @@ npm install
 npm start
 ```
 
-With the default settings, your server will be running at http://localhost:3000
+With the default settings, your server will be running at [http://localhost:3000](http://localhost:3000)
 
 for further information, please go to : http://brandboat.github.io/2014-08-16-Routing_on_OSM/ (offline, Chinese)
