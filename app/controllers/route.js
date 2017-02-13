@@ -45,10 +45,11 @@ exports.pgr_dijkstra = function(req, res) {
   // delete duplicate points.
   function eliminate(points, callback) {
     var eliPoints = [];
-    if (Array.isArray(points)) {
-      for (var i = 0; i < points.length; i++) {
-        if (!(p[i].lat === p[i - 1].lat && p[i].lng === p[i - 1].lng)) {
-          eliPoints.push(p[i]);
+    if (Array.isArray(points) && points.length > 0) {
+      eliPoints.push(points[0]);
+      for (var i = 1; i < points.length; i++) {
+        if (!(points[i].lat === points[i - 1].lat && points[i].lng === points[i - 1].lng)) {
+          eliPoints.push(points[i]);
         }
       }
     }
