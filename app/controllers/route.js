@@ -4,7 +4,7 @@ exports.pgr_dijkstra = function(req, res) {
   var pg = require('pg');
   var config = require('../config/config');
   var async = require('async');
-  var conString = "postgres://" + config.database.username + ":" + config.database.password + "@localhost/" + config.database.dbname;
+  var conString = "postgres://" + config.database.username + ":" + config.database.password + "@" + config.database.host + "/" + config.database.dbname;
   var client = new pg.Client(conString);
   var reqPoint = [];
 
@@ -13,8 +13,11 @@ exports.pgr_dijkstra = function(req, res) {
     j = 0;
   var queryStreets = [];
 
-
-  client.connect();
+  client.connect(function(err) {
+    if (err) {
+      throw err;
+    }
+  });
 
   async.waterfall([
     function(callback) {
@@ -41,14 +44,12 @@ exports.pgr_dijkstra = function(req, res) {
 
   // delete duplicate points.
   function eliminate(points, callback) {
-    var p = points;
     var eliPoints = [];
-
-    eliPoints.push(p[0]);
-
-    for (var i = 1; i < p.length; i++) {
-      if (p[i].lat === p[i - 1].lat && p[i].lng === p[i - 1].lng) {} else {
-        eliPoints.push(p[i]);
+    if (Array.isArray(points)) {
+      for (var i = 0; i < points.length; i++) {
+        if (!(p[i].lat === p[i - 1].lat && p[i].lng === p[i - 1].lng)) {
+          eliPoints.push(p[i]);
+        }
       }
     }
     callback(null, eliPoints);
@@ -62,7 +63,7 @@ exports.pgr_dijkstra = function(req, res) {
         "st_distance(the_geom, st_setsrid(st_makepoint(" +
         "$1::float,$2::float), 4326)) LIMIT 1;";
 
-      client.query(qStr, [point.lng, point.lat],function(err, result) {
+      client.query(qStr, [point.lng, point.lat], function(err, result) {
         if (err) {
           callback(err, null);
         } else {

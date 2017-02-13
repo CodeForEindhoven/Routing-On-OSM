@@ -9,7 +9,6 @@ var bodyParser = require('body-parser');
 module.exports = function(app, express) {
   app.set('env', env);
   app.set('port', app.config.server.port || 3001);
-  app.set('hostname', app.config.server.hostname || '127.0.0.1');
   app.set('views', path.join(__dirname, '../../app/views'));
   app.set('view engine', 'pug');
   app.use(bodyParser.json()); // to support JSON-encoded bodies

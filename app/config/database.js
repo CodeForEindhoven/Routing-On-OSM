@@ -1,6 +1,6 @@
 var pg = require('pg');
 var config = require('../config/config');
-var conString = "postgres://" + config.database.username + ":" + config.database.password + "@localhost/" + config.database.dbname;
+var conString = "postgres://" + config.database.username + ":" + config.database.password + "@" + config.database.host + "/" + config.database.dbname;
 var client = new pg.Client(conString);
 
 function connect_db() {

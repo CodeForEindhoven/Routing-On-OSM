@@ -4,14 +4,13 @@ var path = require('path'),
 var config = {
   development: {
     server: {
-      port: 3000,
-      hostname: 'localhost',
+      port: process.env.HOST_PORT || 3000
     },
     database: {
-      username: "postgres",
-      password: "mysecretpassword",
-      url: 'postgresql://localhost:5432',
-      dbname: 'eersel'
+      host: process.env.DATABASE_HOST || "localhost",
+      username: process.env.DATABASE_USER || "postgres",
+      password: process.env.DATABASE_PASSWORD || "mysecretpassword",
+      dbname: process.env.DATABASE_NAME || 'eersel'
     },
     root: rootPath
   },

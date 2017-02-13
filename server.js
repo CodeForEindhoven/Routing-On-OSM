@@ -6,9 +6,9 @@ var app       = express();
 app.config = config;
 require('./app/config/express')(app, express);
 
-app.listen(app.get('port'), app.get('hostname'), function () {
-    console.log("\n✔ Express server listening on %s:%d in %s mode",
-        app.get('hostname'), app.get('port'), app.get('env'));
+app.listen(app.get('port'), function () {
+    console.log("\n✔ Express server listening on port %d in %s mode",
+        app.get('port'), app.get('env'));
 });
 
 module.exports = app;
